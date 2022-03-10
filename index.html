@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+<!--
+  body {
+    background: url("bg.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+    background-size: 100% 100%;
+    font-family: 'Dosis', sans-serif;
+    text-align: center;
+  }
+  *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ } -->
+
+.card-holder{
+  width: 100vw;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+
+}
+
+.card{
+  background: #fff;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  font-family: Arial;
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.2px solid black;
+}
+
+.logo img {
+  width: 200px; }
+
+nav > ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav > ul > li {
+    margin: 0 1rem;
+}
+.input {
+  font-size: 16px;
+  font-size: Max(16px, 1em);
+  font-family: inherit;
+  padding: 0.25em 0.5em;
+  border: 2px solid ;
+  border-radius: 4px;
+  transition: 180ms box-shadow ease-in-out;
+}
+.form-submit-button {
+background: #0066A2;
+color: white;
+border-style: outset;
+border-color: #0066A2;
+height: 50px;
+width: 100px;
+font: bold15px arial,sans-serif;
+text-shadow: none;
+}
+.form-submit-button:hover {
+background: #016ABC;
+color: #fff;
+border: 1px solid #eee;
+border-radius: 20px;
+box-shadow: 5px 5px 5px #eee;
+text-shadow: none;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+<!----------------------
+   Our profile cards
+------------------------>
+<div class="card-holder">
+  <div class="card">
+    <nav>
+      <font face = "Times New Roman" size = "5">EEE-SUBSYSTEM</font>
+      <img style="width: 150px;" src="https://www.tvsmotor.com/-/media/Feature/Header/tvs-logo.png"/>
+    </nav><br>
+    <form action="https://ipindiaservices.gov.in/PatentSearch/PatentSearch/ViewDocuments" method = "post">
+      <input type = "hidden" id = "PATENT_NUMBER" value = "" name = "PATENT_NUMBER">
+      <label for="text-input"><font face = "Bedrock" size = "4">Patent Number</font></label><br><br>
+      <input class="input" name="APPLICATION_NUMBER" id="APPLICATION_NUMBER" type="text" placeholder="Enter Patent number here..." /><br><br>
+      <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button">
+      
+      <br><br>
+    </form>
+  </div>
+</div>
+</body>
+</html>
