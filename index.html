@@ -12,6 +12,7 @@
     background-size: 100% 100%;
     font-family: 'Dosis', sans-serif;
     text-align: center;
+    display: flex;
   }
   *{
   margin: 0;
@@ -37,16 +38,43 @@
   text-align: center;
   font-family: Arial;
   position: absolute;
-  top: 50%;
-  left: 20%;
+  top: 39%;
+  left: 18%;
   transform: translateX(-50%) translateY(-50%);
+  border-radius: 8px;
 }
-
+.card2{
+  background: #fff;
+  padding: 5px;
+  width: 80%;
+  max-width: 400px;
+  /* text-align: center; */
+  font-family: Arial;
+  position: absolute;
+  top: 60%;
+  left: 18%;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 8px;
+}
+.page-info{
+  background: #fff;
+  padding: 3px;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  font-family: Arial;
+  position: absolute;
+  top: 90%;
+  left: 18%;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 8px;
+}
   nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 0.2px solid black;
+    padding-bottom: 10px;
 }
 
 .logo img {
@@ -76,7 +104,7 @@ background: #0066A2;
 color: white;
 border-style: outset;
 border-color: #0066A2;
-height: 50px;
+height: 30px;
 width: 120px;
 font: bold15px arial,sans-serif;
 text-shadow: none;
@@ -88,6 +116,14 @@ border: 1px solid #eee;
 border-radius: 20px;
 box-shadow: 5px 5px 5px #eee;
 text-shadow: none;
+}
+.card2:hover:before {
+  content:"Coming soon...";
+  font-family: "Times New Roman";
+    font-size: x-large;
+}
+.card2:hover font{
+  display: none;
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -104,12 +140,21 @@ text-shadow: none;
     <form action="https://ipindiaservices.gov.in/PatentSearch/PatentSearch/ViewDocuments" method = "post">
       <input type = "hidden" id = "PATENT_NUMBER" value = "" name = "PATENT_NUMBER">
       <label for="text-input"><font face = "Bedrock" size = "4">Indian Patent Number</font></label><br><br>
-      <input class="input" name="APPLICATION_NUMBER" id="APPLICATION_NUMBER" type="text" placeholder="Enter Patent number here..." /><br><br>
+      <input class="input" name="APPLICATION_NUMBER" id="APPLICATION_NUMBER" type="text" placeholder="Enter patent number here..." />&nbsp;&nbsp;
       <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button">
       
       <br><br>
     </form>
-  </div>
+    </div>
+    <div class="card2">
+      <font class="card2-text" face = "Times New Roman" size = "5">EEE Testing Lab Asset Management</font>
+    </div>
+    <div class="page-info">
+      <font face = "Bedrock" size = "4">Developed and Maintained by</font><br/>
+      <font face = "Bedrock" size = "4"><a href="https://tvsmsampark.darwinbox.in/employeeprofile/view/id/99129">Akhil Suthapalli</a>&nbsp;-&nbsp;Infotainment</font>
+    </div>
+    
 </div>
+
 </body>
 </html>
