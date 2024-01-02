@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/Patent_page/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A flutter project to host all infotainmnet related information">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="infotainment_webpage">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Infotainment Webpage</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = "1938879809";
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+<input type="hidden" id="textToCopy">
+<form id="ApplicationDocumentSearch" action="https://iprsearch.ipindia.gov.in/PatentSearch/PatentSearch/ViewDocuments" method = "post" target="_blank" >
+  <input type = "hidden" id = "PATENT_NUMBER" value = "" name = "PATENT_NUMBER">
+  <input class="input" name="APPLICATION_NUMBER" id="APPLICATION_NUMBER" type="text" placeholder="Enter aplication number here..." />&nbsp;&nbsp;
+  <input type="hidden" name="SubmitAction" value="View Documents">
+  <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button">
+</form>
+<form id="ApplicationStatusSearch" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/GetApplicationStatus" method = "post" target="_blank" >
+  <input id="ApplicationNumber" name="ApplicationNumber" type="hidden" value="202241008449             ">
+  <input type="hidden" name="SubmitAction" value="View Application Status">
+  <input type="submit" name="SubmitAction" value="View Application Status" class="form-submit-button">
+</form>
+<form id="ApplicationNumberSearchFromGrantNumber" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/PatentSearchResult" method = "post" target="_blank" >
+  <input type = "hidden" id = "ConnectionName" value = "GrantedConnection" name = "ConnectionName">
+  <input type = "hidden" id = "page" value = "1" name = "page">
+  <input class="input" name="QueryStringinput" id="QueryStringinput" type="text" placeholder="Enter patent number here..." />&nbsp;&nbsp;
+  <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button" onclick="find_patent()">
+  <input type="hidden" name="SubmitAction" value="View Documents">
+  <input type = "hidden" id = "QueryString" value = "" name = "QueryString">
+</form>
+
+<script>
+
+  function alertMessage(text) {
+    alert(text)
+  }
+
+  function findGrant(grantNumber){
+    document.getElementById("QueryStringinput").value = grantNumber;
+    document.getElementById("QueryString").value = "SELECT AD.[APPLICATION_NUMBER],AD.[PATENT_NUMBER],[TITLE_OF_INVENTION],CONVERT(VARCHAR(10),[DATE_OF_FILING],103) AS Application_Date FROM [dbo].[PAT_APPLICATION_DETAILS] (Nolock) AS AD WHERE AD.PATENT_NUMBER = '" + document.getElementById("QueryStringinput").value + "' ";
+    document.getElementById("ApplicationNumberSearchFromGrantNumber").submit();
+  }
+
+  function getApplicationStatus(application_number){
+    document.getElementById("ApplicationNumber").value = application_number;
+    document.getElementById("ApplicationStatusSearch").submit();
+  }
+
+  function openPublication(application_number){
+    document.getElementById("APPLICATION_NUMBER").value = application_number;
+    document.getElementById("ApplicationDocumentSearch").submit();
+  }
+
+  function ApplicationNumberLinkGenerator(application_number){
+
+      var textToCopyInput = document.getElementById("textToCopy");
+      textToCopyInput.value = "https://akhil-suthapalli.github.io/Patent_page/redirect/" + "?ApplicationNumber=" + application_number;
+
+      navigator.clipboard.writeText(textToCopyInput.value);
+
+    }
+
+
+
+</script>
+
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script type="text/javascript">
+   pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js";
+</script>
+<script>
+
+
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
