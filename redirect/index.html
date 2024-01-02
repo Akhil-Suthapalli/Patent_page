@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<link rel="icon" href="Tvs_logo3.png">
+<style type="text/css">
+  *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ } 
+
+.card-holder{
+  width: 100vw;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    font-family: Arial;
+    position: absolute;
+    top: 39%;
+    left: 18%; /* Adjust the left value for card1 */
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+
+}
+
+.card2 {
+    background: #fff;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    font-family: Arial;
+    position: absolute;
+    top: 75%;
+    left: 18%; /* Adjust the left value for card2 */
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+
+}
+
+.page-info {
+    background: #fff;
+    padding: 3px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    font-family: Arial;
+    position: absolute;
+    top: 90%; /* Adjust the top value for page-info */
+    left: 18%; /* Adjust the left value for page-info */
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.2px solid black;
+    padding-bottom: 10px;
+}
+
+
+.logo img {
+  width: 200px; }
+
+nav > ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav > ul > li {
+    margin: 0 1rem;
+}
+.input {
+  font-size: 16px;
+  font-size: Max(16px, 1em);
+  font-family: inherit;
+  padding: 0.25em 0.5em;
+  border: 2px solid ;
+  border-radius: 4px;
+  transition: 180ms box-shadow ease-in-out;
+}
+.form-submit-button {
+background: #0066A2;
+color: white;
+border-style: outset;
+border-color: #0066A2;
+height: 30px;
+width: 120px;
+font: bold15px arial,sans-serif;
+text-shadow: none;
+}
+.form-submit-button:hover {
+background: #016ABC;
+color: #fff;
+border: 1px solid #eee;
+border-radius: 20px;
+box-shadow: 5px 5px 5px #eee;
+text-shadow: none;
+}
+
+.generate-button {
+background: #0066A2;
+color: white;
+border-style: outset;
+border-color: #0066A2;
+height: 30px;
+width: 150px;
+font: bold15px arial,sans-serif;
+text-shadow: none;
+}
+.generate-button:hover {
+background: #016ABC;
+color: #fff;
+border: 1px solid #eee;
+border-radius: 20px;
+box-shadow: 5px 5px 5px #eee;
+text-shadow: none;
+}
+
+	.modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		width: 400px
+		height: 200px
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+		pointer-events: auto;
+        }
+	.modal * {
+            pointer-events: none;
+        }
+
+</style>
+
+<script>
+
+function find_patent(){
+
+
+	document.getElementById("QueryString").value = "SELECT AD.[APPLICATION_NUMBER],AD.[PATENT_NUMBER],[TITLE_OF_INVENTION],CONVERT(VARCHAR(10),[DATE_OF_FILING],103) AS Application_Date FROM [dbo].[PAT_APPLICATION_DETAILS] (Nolock) AS AD WHERE AD.PATENT_NUMBER = '" + document.getElementById("QueryStringinput").value + "' ";
+	return true;
+
+}
+
+</script>
+
+<script>
+        // Function to check the URL for tags and perform an operation
+        function checkURLForTags() {
+
+		// Get the query parameters from the current URL
+		var queryParams = new URLSearchParams(window.location.search);
+
+		if (queryParams.has('ApplicationNumber')) {
+			
+    			document.getElementById("APPLICATION_NUMBER").value = queryParams.get('ApplicationNumber');
+
+			var modal = document.getElementById('modal');
+    			modal.style.display = 'block';
+			setTimeout(function() {
+    				document.getElementById("ApplicationDocumentSearch").submit();
+			}, 2000); // 2000 milliseconds = 2 seconds
+
+			
+
+		}
+
+		else if (queryParams.has('GrantNumber')) {
+
+    			document.getElementById("QueryStringinput").value = queryParams.get('GrantNumber');
+			find_patent();
+
+			var modal = document.getElementById('modal');
+    			modal.style.display = 'block';
+
+			setTimeout(function() {
+    				document.getElementById("ApplicationNumberSearchFromGrantNumber").submit();
+			}, 2000); // 2000 milliseconds = 2 seconds
+
+			
+
+		} else{
+
+			var modal = document.getElementById('modal2');
+    			modal.style.display = 'block';
+			setTimeout(function() {
+    				window.location.href = "https://akhil-suthapalli.github.io/Patent_page/";
+			}, 2000); // 2000 milliseconds = 2 seconds
+
+
+		}
+
+
+        }
+
+        // Call the checkURLForTags function when the page is loaded
+        window.addEventListener("load", checkURLForTags);
+
+
+
+    </script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+<input type="hidden" id="textToCopy">
+<div class="overlay" id="overlay"></div>
+  <div class="modal" id="modal">
+        <h2>Redirecting...</h2>
+	<br>
+        <p>Please wait while you are being redirected to Indian Patent Office website.</p>
+  </div>
+
+<div class="modal" id="modal2">
+        <h2>Ooops...</h2>
+	<br>
+        <p>The link appears broken &#128577;. Redirecting to Main site</p>
+  </div>
+<!----------------------
+   Our profile cards
+------------------------>
+<div class="card-holder" >
+  <div class="card" hidden>
+    <nav>
+      <font face = "Times New Roman" size = "5">EEE-SUBSYSTEM</font>
+      <img style="width: 150px;" src="https://www.tvsmotor.com/-/media/Feature/Header/tvs-logo.png"/>
+    </nav><br>
+    <form id="ApplicationDocumentSearch" action="https://iprsearch.ipindia.gov.in/PatentSearch/PatentSearch/ViewDocuments" method = "post">
+      <input type = "hidden" id = "PATENT_NUMBER" value = "" name = "PATENT_NUMBER">
+      <label for="text-input"><font face = "Bedrock" size = "4">Indian Patent Application Number</font></label><br><br>
+      <input class="input" name="APPLICATION_NUMBER" id="APPLICATION_NUMBER" type="text" placeholder="Enter aplication number here..." />&nbsp;&nbsp;
+	<input type="hidden" name="SubmitAction" value="View Documents">
+      <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button">
+      </form>
+	<br>
+	<button id="ApplicationNumberLinkGenerator" class="generate-button" onclick = "ApplicationNumberLinkGenerator()" > Generate & Copy Link
+    	</button>
+      <br>
+	<br>
+	<form id="ApplicationNumberSearchFromGrantNumber" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/PatentSearchResult" method = "post">
+      <input type = "hidden" id = "ConnectionName" value = "GrantedConnection" name = "ConnectionName">
+	<input type = "hidden" id = "page" value = "1" name = "page">
+      <label for="text-input"><font face = "Bedrock" size = "4">Indian Patent Grant Number</font></label><br><br>
+      <input class="input" name="QueryStringinput" id="QueryStringinput" type="text" placeholder="Enter patent number here..." />&nbsp;&nbsp;
+      <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button" onclick="find_patent()">
+	<input type="hidden" name="SubmitAction" value="View Documents">
+	<input type = "hidden" id = "QueryString" value = "" name = "QueryString">
+      </form>
+<!--
+	<br>
+	<button id = "GrantNumberLinkGenerator" class="generate-button" onclick = "GrantNumberLinkGenerator()" > Generate & Copy Link
+    	</button>
+-->
+    </div>
+    
+</div>
+
+</body>
+</html>
