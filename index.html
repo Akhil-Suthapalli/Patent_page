@@ -34,32 +34,49 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "1938879809";
+    const serviceWorkerVersion = "2338917840";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      height: 200px
+    }
+  </style>
 </head>
 <body>
 <input type="hidden" id="textToCopy">
-<form id="ApplicationDocumentSearch" action="https://iprsearch.ipindia.gov.in/PatentSearch/PatentSearch/ViewDocuments" method = "post" target="_blank" >
-  <input type = "hidden" id = "PATENT_NUMBER" value = "" name = "PATENT_NUMBER">
-  <input class="input" name="APPLICATION_NUMBER" id="APPLICATION_NUMBER" type="text" placeholder="Enter aplication number here..." />&nbsp;&nbsp;
-  <input type="hidden" name="SubmitAction" value="View Documents">
-  <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button">
-</form>
-<form id="ApplicationStatusSearch" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/GetApplicationStatus" method = "post" target="_blank" >
-  <input id="ApplicationNumber" name="ApplicationNumber" type="hidden" value="202241008449             ">
-  <input type="hidden" name="SubmitAction" value="View Application Status">
-  <input type="submit" name="SubmitAction" value="View Application Status" class="form-submit-button">
-</form>
-<form id="ApplicationNumberSearchFromGrantNumber" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/PatentSearchResult" method = "post" target="_blank" >
-  <input type = "hidden" id = "ConnectionName" value = "GrantedConnection" name = "ConnectionName">
-  <input type = "hidden" id = "page" value = "1" name = "page">
-  <input class="input" name="QueryStringinput" id="QueryStringinput" type="text" placeholder="Enter patent number here..." />&nbsp;&nbsp;
-  <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button" onclick="find_patent()">
-  <input type="hidden" name="SubmitAction" value="View Documents">
-  <input type = "hidden" id = "QueryString" value = "" name = "QueryString">
-</form>
+<div class="modal" id="modal">
+  <form id="ApplicationDocumentSearch" action="https://iprsearch.ipindia.gov.in/PatentSearch/PatentSearch/ViewDocuments" method = "post" target="_blank" >
+    <input type = "hidden" id = "PATENT_NUMBER" value = "" name = "PATENT_NUMBER">
+    <input class="input" name="APPLICATION_NUMBER" id="APPLICATION_NUMBER" type="text" placeholder="Enter aplication number here..." />&nbsp;&nbsp;
+    <input type="hidden" name="SubmitAction" value="View Documents">
+    <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button">
+  </form>
+  <form id="ApplicationStatusSearch" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/GetApplicationStatus" method = "post" target="_blank" >
+    <input id="ApplicationNumber" name="ApplicationNumber" type="hidden" value="202241008449             ">
+    <input type="hidden" name="SubmitAction" value="View Application Status">
+    <input type="submit" name="SubmitAction" value="View Application Status" class="form-submit-button">
+  </form>
+  <form id="ApplicationNumberSearchFromGrantNumber" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/PatentSearchResult" method = "post" target="_blank" >
+    <input type = "hidden" id = "ConnectionName" value = "GrantedConnection" name = "ConnectionName">
+    <input type = "hidden" id = "page" value = "1" name = "page">
+    <input class="input" name="QueryStringinput" id="QueryStringinput" type="text" placeholder="Enter patent number here..." />&nbsp;&nbsp;
+    <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button" onclick="find_patent()">
+    <input type="hidden" name="SubmitAction" value="View Documents">
+    <input type = "hidden" id = "QueryString" value = "" name = "QueryString">
+  </form>
+</div>
+
 
 <script>
 
