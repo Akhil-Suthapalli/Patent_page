@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Merger</title>
+  <!-- Include pdf-lib library -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.14.0/dist/pdf-lib.js"></script>
+</head>
+<body>
+  <h1>PDF Merger</h1>
+  <input type="file" id="pdfInput" multiple accept=".pdf">
+  <button onclick="mergeAndDownload()">Merge and Download</button>
+
+  <script>
+    async function downloadPdf(file) {
+      const data = await file.arrayBuffer();
+      return PDFLib.PDFDocument.load(data);
+    }
+
+    async function mergePdfs(pdfDocuments) {
+      const mergedPdf = await PDFLib.PDFDocument.create();
+      
+      for (const pdfDoc of pdfDocuments) {
+        const copiedPages = await mergedPdf.copyPages(pdfDoc, pdfDoc.getPageIndices());
+        copiedPages.forEach((page) => mergedPdf.addPage(page));
+      }
+
+      return mergedPdf;
+    }
+async function downloadMergedPdf(mergedPdf, filename = 'merged.pdf') {
+  const pdfBytes = await mergedPdf.save();
+
+  const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+    async function mergeAndDownload() {
+      const input = document.getElementById('pdfInput');
+      const files = input.files;
+
+      if (files.length === 0) {
+        alert('Please select at least one PDF file.');
+        return;
+      }
+
+      const pdfDocuments = await Promise.all(Array.from(files).map(downloadPdf));
+      const mergedPdf = await mergePdfs(pdfDocuments);
+      downloadMergedPdf(mergedPdf, 'merged.pdf');
+    }
+  </script>
+</body>
+</html>

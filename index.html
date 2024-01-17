@@ -19,6 +19,7 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A flutter project to host all infotainmnet related information">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.js"></script>
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,7 +35,7 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "2338917840";
+    const serviceWorkerVersion = "519039057";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -108,6 +109,68 @@
       navigator.clipboard.writeText(textToCopyInput.value);
 
     }
+
+   async function download_merge(links){
+      console.log(links);
+
+      const aa = Array.from(links);
+      console.log(aa);
+
+      const pdfs = await fetchPDFs(links);
+      const mergedPdf = await mergePDFsArray(pdfs);
+      const mergedPdf2 = await mergedPdf.save();
+
+      const uint8Array = new Uint8Array(mergedPdf2);
+      const blob = new Blob([uint8Array], { type: 'application/pdf' });
+      //const blob = await mergedPdf.save();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'merged.pdf';
+      link.click();
+
+   }
+
+  async function fetchPDFs(pdfLinks) {
+            const pdfs = [];
+            const url = "https://iprsearch.ipindia.gov.in/PatentSearch/PatentSearch/ViewPDF";
+            for (const link of pdfLinks) {
+                const response = await fetch(url.trim(), {
+                    method: 'POST',
+                    // Add any necessary headers or body parameters for your POST request
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add other headers as needed
+                    },
+                    body: JSON.stringify({
+                      "DocumentName": link,
+                      "APPLICATION_NUMBER" : link.substring(0,12),
+                    }), // Add body parameters if needed
+                });
+
+                if (response.ok) {
+                    const pdfBytes = await response.arrayBuffer();
+                    pdfs.push(pdfBytes);
+                } else {
+                    console.error(`Failed to fetch PDF from ${link}. Status: ${response.status}`);
+                }
+            }
+
+     return pdfs;
+  }
+
+  async function mergePDFsArray(pdfs) {
+            const pdfDoc = await PDFLib.PDFDocument.create();
+
+            for (const pdfBytes of pdfs) {
+                const externalPdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
+                const copiedPages = await pdfDoc.copyPages(externalPdfDoc, externalPdfDoc.getPageIndices());
+                copiedPages.forEach(page => pdfDoc.addPage(page));
+            }
+
+     return pdfDoc;
+  }
 
 
 
