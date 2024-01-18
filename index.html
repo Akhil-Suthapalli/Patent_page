@@ -35,7 +35,7 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "519039057";
+    const serviceWorkerVersion = "1802917735";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -141,6 +141,8 @@
                     // Add any necessary headers or body parameters for your POST request
                     headers: {
                         'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin' : '*',
+                        'Origin' : 'iprsearch.ipindia.gov.in',
                         // Add other headers as needed
                     },
                     body: JSON.stringify({
