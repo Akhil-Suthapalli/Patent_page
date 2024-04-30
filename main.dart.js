@@ -85003,7 +85003,7 @@ A.Tr.prototype={
 aU(){this.bf()
 A.rC(B.Ex,new A.am3(this),t.P)
 var s=t.N
-this.ne(A.aG(["pageVisit","Main Page Visit"],s,s))},
+this.ne(A.aG(["pageVisit","MainPageVisit"],s,s))},
 ne(a){return this.a_d(a)},
 a_d(a){var s=0,r=A.X(t.z),q,p,o
 var $async$ne=A.Y(function(b,c){if(b===1)return A.U(c,r)
@@ -85094,7 +85094,7 @@ $0(){var s=this.b.a.a
 if(s.length===0)$.lX().ih("alertMessage",["Application number cannot be empty"])
 else{$.lX().ih("openPublication",[s])
 s=t.N
-this.a.ne(A.aG(["publication","Publication View"],s,s))}},
+this.a.ne(A.aG(["publication","PublicationView"],s,s))}},
 $S:0}
 A.alS.prototype={
 $0(){var s=this.a.a.a
@@ -85106,14 +85106,14 @@ $0(){var s=this.b.a.a
 if(s.length===0)$.lX().ih("alertMessage",["Application number cannot be empty"])
 else{$.lX().ih("getApplicationStatus",[s])
 s=t.N
-this.a.ne(A.aG(["publication","Publication Status"],s,s))}},
+this.a.ne(A.aG(["publication","PublicationStatus"],s,s))}},
 $S:0}
 A.alU.prototype={
 $0(){var s=this.b.a.a
 if(s.length===0)$.lX().ih("alertMessage",["Grant number cannot be empty"])
 else{$.lX().ih("findGrant",[s])
 s=t.N
-this.a.ne(A.aG(["grant","Grant View"],s,s))}},
+this.a.ne(A.aG(["grant","GrantView"],s,s))}},
 $S:0}
 A.alV.prototype={
 $0(){this.a.wd(this.b)},
