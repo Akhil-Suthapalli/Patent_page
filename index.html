@@ -1,206 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/Patent_page/">
-
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A flutter project to host all infotainmnet related information">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.js"></script>
-
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="infotainment_webpage">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>Infotainment Webpage</title>
-  <link rel="manifest" href="manifest.json">
-
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "1534163610";
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
-  <style>
-    .modal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      width: 400px;
-      height: 200px
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="2;url=https://www.example.com">
+    <title>Redirecting...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #9face6);
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+        }
+        a {
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #ff3d3d;
+        }
+    </style>
 </head>
 <body>
-<input type="hidden" id="textToCopy">
-<div class="modal" id="modal">
-  <form id="ApplicationDocumentSearch" action="https://iprsearch.ipindia.gov.in/PatentSearch/PatentSearch/ViewDocuments" method = "post" target="_blank" >
-    <input type = "hidden" id = "PATENT_NUMBER" value = "" name = "PATENT_NUMBER">
-    <input class="input" name="APPLICATION_NUMBER" id="APPLICATION_NUMBER" type="text" placeholder="Enter aplication number here..." />&nbsp;&nbsp;
-    <input type="hidden" name="SubmitAction" value="View Documents">
-    <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button">
-  </form>
-  <form id="ApplicationStatusSearch" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/GetApplicationStatus" method = "post" target="_blank" >
-    <input id="ApplicationNumber" name="ApplicationNumber" type="hidden" value="202241008449             ">
-    <input type="hidden" name="SubmitAction" value="View Application Status">
-    <input type="submit" name="SubmitAction" value="View Application Status" class="form-submit-button">
-  </form>
-  <form id="ApplicationNumberSearchFromGrantNumber" action="https://iprsearch.ipindia.gov.in/PublicSearch/PublicationSearch/PatentSearchResult" method = "post" target="_blank" >
-    <input type = "hidden" id = "ConnectionName" value = "GrantedConnection" name = "ConnectionName">
-    <input type = "hidden" id = "page" value = "1" name = "page">
-    <input class="input" name="QueryStringinput" id="QueryStringinput" type="text" placeholder="Enter patent number here..." />&nbsp;&nbsp;
-    <input type="submit" name="SubmitAction" value="View Documents" class="form-submit-button" onclick="find_patent()">
-    <input type="hidden" name="SubmitAction" value="View Documents">
-    <input type = "hidden" id = "QueryString" value = "" name = "QueryString">
-  </form>
-</div>
-
-
-<script>
-
-  function alertMessage(text) {
-    alert(text)
-  }
-
-  function findGrant(grantNumber){
-    document.getElementById("QueryStringinput").value = grantNumber;
-    document.getElementById("QueryString").value = "SELECT AD.[APPLICATION_NUMBER],AD.[PATENT_NUMBER],[TITLE_OF_INVENTION],CONVERT(VARCHAR(10),[DATE_OF_FILING],103) AS Application_Date FROM [dbo].[PAT_APPLICATION_DETAILS] (Nolock) AS AD WHERE AD.PATENT_NUMBER = '" + document.getElementById("QueryStringinput").value + "' ";
-    document.getElementById("ApplicationNumberSearchFromGrantNumber").submit();
-  }
-
-  function getApplicationStatus(application_number){
-    document.getElementById("ApplicationNumber").value = application_number;
-    document.getElementById("ApplicationStatusSearch").submit();
-  }
-
-  function openPublication(application_number){
-    document.getElementById("APPLICATION_NUMBER").value = application_number;
-    document.getElementById("ApplicationDocumentSearch").submit();
-  }
-
-  function ApplicationNumberLinkGenerator(application_number){
-
-      var textToCopyInput = document.getElementById("textToCopy");
-      textToCopyInput.value = "https://akhil-suthapalli.github.io/Patent_page/redirect/" + "?ApplicationNumber=" + application_number;
-
-      navigator.clipboard.writeText(textToCopyInput.value);
-
-    }
-
-   async function download_merge(links){
-      console.log(links);
-
-      const aa = Array.from(links);
-      console.log(aa);
-
-      const pdfs = await fetchPDFs(links);
-      const mergedPdf = await mergePDFsArray(pdfs);
-      const mergedPdf2 = await mergedPdf.save();
-
-      const uint8Array = new Uint8Array(mergedPdf2);
-      const blob = new Blob([uint8Array], { type: 'application/pdf' });
-      //const blob = await mergedPdf.save();
-      const blobUrl = window.URL.createObjectURL(blob);
-
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = 'merged.pdf';
-      link.click();
-
-   }
-
-  async function fetchPDFs(pdfLinks) {
-            const pdfs = [];
-            const url = "https://iprsearch.ipindia.gov.in/PatentSearch/PatentSearch/ViewPDF";
-            for (const link of pdfLinks) {
-                const response = await fetch(url.trim(), {
-                    method: 'POST',
-                    // Add any necessary headers or body parameters for your POST request
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin' : '*',
-                        'Origin' : 'iprsearch.ipindia.gov.in',
-                        // Add other headers as needed
-                    },
-                    body: JSON.stringify({
-                      "DocumentName": link,
-                      "APPLICATION_NUMBER" : link.substring(0,12),
-                    }), // Add body parameters if needed
-                });
-
-                if (response.ok) {
-                    const pdfBytes = await response.arrayBuffer();
-                    pdfs.push(pdfBytes);
-                } else {
-                    console.error(`Failed to fetch PDF from ${link}. Status: ${response.status}`);
-                }
-            }
-
-     return pdfs;
-  }
-
-  async function mergePDFsArray(pdfs) {
-            const pdfDoc = await PDFLib.PDFDocument.create();
-
-            for (const pdfBytes of pdfs) {
-                const externalPdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
-                const copiedPages = await pdfDoc.copyPages(externalPdfDoc, externalPdfDoc.getPageIndices());
-                copiedPages.forEach(page => pdfDoc.addPage(page));
-            }
-
-     return pdfDoc;
-  }
-
-
-
-</script>
-
-
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-<script type="text/javascript">
-   pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js";
-</script>
-<script>
-
-
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
-      });
-    });
-  </script>
+    <div>
+        <h1>You will be redirected in 2 seconds...</h1>
+        <p>If you are not redirected, <a href="https://tvsmotor.akhildevelop.com">click here</a>.</p>
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "https://tvsmotor.akhildevelop.com";
+        }, 2000);
+    </script>
 </body>
 </html>
